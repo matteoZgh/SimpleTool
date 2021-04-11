@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 public class SafeChain<T> {
@@ -19,6 +20,10 @@ public class SafeChain<T> {
 
     public <R> SafeChain<R> process(Function<T, R> function) {
         return new SafeChain<>(getObject(function));
+    }
+
+    public void get(Consumer<T> consumer) {
+        if (instance != null) consumer.accept(instance);
     }
 
     public int getInt(Function<T, Integer> function) {
